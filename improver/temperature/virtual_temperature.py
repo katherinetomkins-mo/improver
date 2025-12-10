@@ -36,7 +36,8 @@ class VirtualTemperature(BasePlugin):
         # The units get lost when being calculated as part of running a graph
         # using the multiprocessing scheduler in dagrunner and so need to be
         # added back after the calculation on line 33.
-        virtual_temperature.units = str(virtual_temperature.units)
+        # Now fixed: https://github.com/SciTools/cf-units/pull/603
+        # virtual_temperature.units = str(virtual_temperature.units)
 
         # Update the cube metadata
         virtual_temperature.rename("virtual_temperature")
