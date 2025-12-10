@@ -428,6 +428,12 @@ class HumidityMixingRatio(BasePlugin):
     def generate_pressure_cube(self) -> None:
         """Generate a pressure cube from the pressure coordinate on the temperature cube"""
         coord_list = [coord.name() for coord in self.temperature.coords()]
+        if "dim0dim1dim2" in coord_list:
+            coord_list = [
+                coord_name.replace("flag")
+                for coord_name in coord_list
+                if coord_name == "dim0dim1dim2"
+            ]
         pressure_list = CubeList()
         for temp_slice in self.temperature.slices_over("pressure"):
             pressure_value = temp_slice.coord("pressure").points
